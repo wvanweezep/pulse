@@ -1,5 +1,6 @@
 package com.wvanw.pulse.graphics;
 
+import com.wvanw.pulse.math.Vector2;
 import javafx.scene.image.Image;
 
 import java.io.InputStream;
@@ -59,8 +60,10 @@ public class Sprite {
      * @param scaleX factor to scale the sprite's width
      * @param scaleY factor to scale the sprite's height
      */
-    public void render(int x, int y, double scaleX, double scaleY) {
+    public void render(Vector2 position, Vector2 scale) {
         RenderManager.getInstance().queue(gc ->
-                gc.drawImage(sprite, x, y, sprite.getWidth() * scaleX, sprite.getHeight() * scaleY));
+                gc.drawImage(sprite, position.x, position.y,
+                        sprite.getWidth() * scale.x,
+                        sprite.getHeight() * scale.y));
     }
 }

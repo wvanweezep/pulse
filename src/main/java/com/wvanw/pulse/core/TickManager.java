@@ -1,7 +1,9 @@
 package com.wvanw.pulse.core;
 
+import com.wvanw.pulse.entities.EntityManager;
 import com.wvanw.pulse.graphics.RenderManager;
 import com.wvanw.pulse.graphics.Sprite;
+import com.wvanw.pulse.math.Vector2;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -9,7 +11,7 @@ import javafx.scene.text.Font;
 
 public class TickManager extends AnimationTimer {
 
-    private static final double TARGET_FPS = 60.0;
+    private static final double TARGET_FPS = 20.0;
     private static final double NANO_FPS = 1_000_000_000.0 / TARGET_FPS;
 
     private final GraphicsContext gc;
@@ -35,18 +37,18 @@ public class TickManager extends AnimationTimer {
         delta += elapsed / NANO_FPS;
 
         while (delta >= 1) {
-            // TODO: Update Call
+            EntityManager.getInstance().fixedUpdate();
             delta--;
         }
 
-        // Temp rendering
-        new Sprite("Twitter-Icon.png").render(50, 50, 1, 1);
         RenderManager.getInstance().queue(gc -> {
             gc.setFill(Color.WHITE);
             gc.setFont(Font.font(16));
             gc.fillText("FPS: " + currentFps, 10, 20);
         });
 
+        EntityManager.getInstance().update();
+        EntityManager.getInstance().render();
         RenderManager.getInstance().flush(gc);
         lastUpdate = now;
 
