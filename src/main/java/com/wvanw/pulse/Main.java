@@ -28,7 +28,6 @@ public class Main extends Application {
         new TickManager(gc).start();
     }
 
-
     public static void main(String[] args) {
         launch();
     }
