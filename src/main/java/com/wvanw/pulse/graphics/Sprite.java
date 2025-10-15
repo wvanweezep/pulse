@@ -31,7 +31,8 @@ public class Sprite {
         return sprite.getHeight();
     }
 
-    public void render(GraphicsContext gc, int x, int y, double scaleX, double scaleY) {
-        gc.drawImage(sprite, x, y, sprite.getWidth() * scaleX, sprite.getHeight() * scaleY);
+    public void render(int x, int y, double scaleX, double scaleY) {
+        RenderManager.getInstance().queue(gc ->
+                gc.drawImage(sprite, x, y, sprite.getWidth() * scaleX, sprite.getHeight() * scaleY));
     }
 }

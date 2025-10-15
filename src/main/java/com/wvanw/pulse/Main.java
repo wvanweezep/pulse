@@ -1,12 +1,12 @@
 package com.wvanw.pulse;
 
-import com.wvanw.pulse.graphics.Sprite;
+import com.wvanw.pulse.core.TickManager;
+import com.wvanw.pulse.graphics.RenderManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
@@ -25,15 +25,9 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
 
-        draw(gc);
+        new TickManager(gc).start();
     }
 
-
-    private void draw(GraphicsContext gc) {
-        gc.setFill(Color.BLACK);
-        gc.fillOval(50, 50, 50, 50);
-        new Sprite("/com/wvanw/pulse/assets/Twitter-Icon.png").render(gc, 50, 50, 1, 1);
-    }
 
     public static void main(String[] args) {
         launch();
