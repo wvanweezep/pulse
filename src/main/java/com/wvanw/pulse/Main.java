@@ -1,11 +1,6 @@
 package com.wvanw.pulse;
 
 import com.wvanw.pulse.core.TickManager;
-import com.wvanw.pulse.entities.Entity;
-import com.wvanw.pulse.entities.EntityManager;
-import com.wvanw.pulse.entities.TestEntity;
-import com.wvanw.pulse.graphics.RenderManager;
-import com.wvanw.pulse.math.Vector2;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -29,8 +24,6 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
 
-        EntityManager.getInstance().addEntity("test",
-                new TestEntity(new Vector2(50, 50)));
         new TickManager(gc).start();
     }
 

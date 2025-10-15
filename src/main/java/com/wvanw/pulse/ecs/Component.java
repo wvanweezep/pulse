@@ -1,4 +1,4 @@
-package com.wvanw.pulse.components;
+package com.wvanw.pulse.ecs;
 
 public interface Component {
     void update();

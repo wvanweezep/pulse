@@ -1,9 +1,7 @@
 package com.wvanw.pulse.core;
 
-import com.wvanw.pulse.entities.EntityManager;
+import com.wvanw.pulse.ecs.EntityManager;
 import com.wvanw.pulse.graphics.RenderManager;
-import com.wvanw.pulse.graphics.Sprite;
-import com.wvanw.pulse.math.Vector2;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
