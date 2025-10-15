@@ -1,5 +1,7 @@
 package com.wvanw.pulse.entities;
 
+import com.wvanw.pulse.components.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -34,6 +36,10 @@ public class Entity {
     }
 
     // TODO: Implement Component control methods (getComponent, addComponent, ...)
+    // TODO: Implement Components with HashMap and check for duplicates
+    public void addComponent(Component component) {
+        components.add(component);
+    }
 
     public void update() {
         for (Component component : components)

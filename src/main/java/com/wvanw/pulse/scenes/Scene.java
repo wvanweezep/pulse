@@ -1,16 +1,19 @@
 package com.wvanw.pulse.scenes;
 
 import com.wvanw.pulse.entities.EntityManager;
+import com.wvanw.pulse.prefabs.PrefabRegistry;
 
 public class Scene {
 
     private final String name;
     private final EntityManager entityManager;
+    private final PrefabRegistry prefabRegistry;
 
     // TODO: Add custom filetype for scene loading
-    public Scene(String name) {
+    public Scene(String name, PrefabRegistry prefabRegistry) {
         this.name = name;
         this.entityManager = new EntityManager();
+        this.prefabRegistry = prefabRegistry;
     }
 
     public void load() {
