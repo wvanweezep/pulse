@@ -1,4 +1,4 @@
-package com.wvanw.pulse.ecs;
+package com.wvanw.pulse.entities;
 
 import java.util.*;
 

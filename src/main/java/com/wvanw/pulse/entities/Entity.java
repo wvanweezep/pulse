@@ -1,6 +1,4 @@
-package com.wvanw.pulse.ecs;
-
-import com.wvanw.pulse.math.Vector2;
+package com.wvanw.pulse.entities;
 
 import java.util.ArrayList;
 import java.util.List;
