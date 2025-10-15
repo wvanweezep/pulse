@@ -4,22 +4,11 @@ import java.util.*;
 
 public class EntityManager {
 
-    // TODO: Change away from singleton once scene system is implemented
-    private final static EntityManager INSTANCE = new EntityManager();
-
     private final Map<UUID, Entity> entities = new HashMap<>();
     private final Map<String, UUID> idLookup = new HashMap<>();
     private final Set<UUID> toDestroy = new HashSet<>();
 
-    private EntityManager() {}
-
-    /**
-     * Getter for the Singleton instance of the EntityManager.
-     * @return instance of EntityManager
-     */
-    public static EntityManager getInstance() {
-        return INSTANCE;
-    }
+    public EntityManager() {}
 
     /**
      * Generates a new scene-unique name based on a given base.

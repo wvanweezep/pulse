@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public abstract class Entity {
+public class Entity {
+
+    private final EntityManager entityManager;
 
     private final UUID id;
     private String name;
@@ -12,7 +14,8 @@ public abstract class Entity {
 
     protected final List<Component> components = new ArrayList<>();
 
-    public Entity(String name) {
+    public Entity(EntityManager entityManager, String name) {
+        this.entityManager = entityManager;
         this.id = UUID.randomUUID();
         this.name = name;
     }
@@ -26,7 +29,7 @@ public abstract class Entity {
     }
 
     public String setName(String name) {
-        this.name = EntityManager.getInstance().registerRename(this, name);
+        this.name = entityManager.registerRename(this, name);
         return this.name;
     }
 
@@ -47,6 +50,11 @@ public abstract class Entity {
     public void destroy() {
         if (destroyed) return;
         destroyed = true;
-        EntityManager.getInstance().destroy(this);
+        entityManager.destroy(this);
+    }
+
+    // TODO: Implement copy method for instantiation
+    public void copy() {
+
     }
 }
