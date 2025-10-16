@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 
-public class PrefabLoader {
+public class PrefabLoaderA {
 
     public static Prefab load(String path) {
         String prefabName = null;

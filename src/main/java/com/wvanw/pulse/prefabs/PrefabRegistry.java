@@ -54,7 +54,7 @@ public class PrefabRegistry implements IRegistry<Prefab> {
      */
     public void reload() {
         prefabs.replaceAll((k, _) ->
-                PrefabLoader.load(prefabs.get(k).getPath())
+                PrefabLoaderA.load(prefabs.get(k).getPath())
         );
     }
 }

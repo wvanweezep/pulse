@@ -9,15 +9,13 @@ public class TestComponent implements Component {
     public int fieldInt;
     public Double fieldDouble;
     public String fieldString;
-    public ParsableComponent fieldParsable;
 
     public TestComponent() {}
 
-    public TestComponent(int fieldInt, double fieldDouble, String fieldString, ParsableComponent fieldParsable) {
+    public TestComponent(int fieldInt, double fieldDouble, String fieldString) {
         this.fieldInt = fieldInt;
         this.fieldDouble = fieldDouble;
         this.fieldString = fieldString;
-        this.fieldParsable = fieldParsable;
     }
 
 
@@ -30,11 +28,11 @@ public class TestComponent implements Component {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TestComponent that = (TestComponent) o;
-        return fieldInt == that.fieldInt && Objects.equals(fieldDouble, that.fieldDouble) && Objects.equals(fieldString, that.fieldString) && Objects.equals(fieldParsable, that.fieldParsable);
+        return fieldInt == that.fieldInt && Objects.equals(fieldDouble, that.fieldDouble) && Objects.equals(fieldString, that.fieldString);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fieldInt, fieldDouble, fieldString, fieldParsable);
+        return Objects.hash(fieldInt, fieldDouble, fieldString);
     }
 }
