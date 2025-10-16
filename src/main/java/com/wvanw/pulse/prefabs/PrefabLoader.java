@@ -1,12 +1,15 @@
 package com.wvanw.pulse.prefabs;
 
 import com.wvanw.pulse.components.Component;
+import com.wvanw.pulse.components.ComponentRegistry;
+import com.wvanw.pulse.core.IParsable;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.*;
 
 
 public class PrefabLoader {
@@ -33,7 +36,7 @@ public class PrefabLoader {
             throw new PrefabParseException("Error parsing prefab '" + path + "': " + e.getMessage());
         }
 
-        catch (IOException e) {
+        catch (Exception e) {
             if (prefabName != null)
                 throw new PrefabParseException("An Exception occurred while loading Prefab: " + prefabName);
             throw new PrefabParseException("An Exception occurred while loading Prefab: " + path);
@@ -48,22 +51,50 @@ public class PrefabLoader {
         return parts[1];
     }
 
-    private static Component parseComponent(String line, int lineNumber) {
+    private static Component parseComponent(String line, int lineNumber) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchFieldException {
         String[] parts = line.split(":");
         if (parts.length != 2) throw new PrefabParseException(
                 "Expected format: '<ComponentType>: <Arguments...>' but got: '"
-                + line + "' (line " + lineNumber + ")");
-        return null;
+                 + line + "' (line " + lineNumber + ")");
+        Map<String, String> parameterMap = parseParameters(line, lineNumber, parts[1]);
+
+        Class<? extends Component> clazz = ComponentRegistry.getInstance().get(parts[0]);
+        Component c = clazz.getDeclaredConstructor().newInstance();
+        for (Map.Entry<String, String> entry : parameterMap.entrySet()) {
+            Field field = clazz.getDeclaredField(entry.getKey());
+            field.setAccessible(true);
+            field.set(c, parseValue(field.getType(), entry.getValue()));
+        }
+        return c;
     }
 
-}
+    private static Map<String, String> parseParameters(String line, int lineNumber, String paramString) {
+        String[] parameters = paramString.strip().split(",");
+        Map<String, String> parameterMap = new HashMap<>();
+        for (String param : parameters) {
+            String[] symbolValue = param.strip().split("=");
+            if (symbolValue.length != 2) throw new PrefabParseException(
+                    "Expected format: '<ParameterName>=<Value>' but got '"
+                    + param + "' (line " + lineNumber + ")");
+            parameterMap.put(symbolValue[0].strip(), symbolValue[1].strip());
+        }
+        return parameterMap;
+    }
 
-/*
-Class<?> clazz = Class.forName("my.package." + componentName);
-Component c = (Component) clazz.getDeclaredConstructor().newInstance();
-for (Map.Entry<String,String> entry : params.entrySet()) {
-    Field field = clazz.getDeclaredField(entry.getKey());
-    field.setAccessible(true);
-    field.set(c, parseValue(field.getType(), entry.getValue()));
+    private static <T> T parseValue(Class<T> clazz, String value) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        if (clazz == String.class)
+            return (T) value;
+        else if (IParsable.class.isAssignableFrom(clazz)) {
+            Method parseMethod = clazz.getMethod("parse", String.class);
+            return (T) parseMethod.invoke(value, value);
+        }
+        else if (clazz == int.class || clazz == Integer.class)
+            return (T) (Integer) Integer.parseInt(value);
+        else if (clazz == float.class || clazz == Float.class)
+            return (T) (Float) Float.parseFloat(value);
+        else if (clazz == double.class || clazz == Double.class)
+            return (T) (Double) Double.parseDouble(value);
+        else throw new PrefabParseException("No implementation for parsing "
+                    + clazz.getSimpleName() + " found: " + value);
+    }
 }
- */

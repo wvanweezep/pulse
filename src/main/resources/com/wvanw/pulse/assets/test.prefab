@@ -1,2 +1,2 @@
 Prefab Enemy
-    SpriteRenderer: path=Twitter-Icon.png
+    SpriteRenderer: path=Twitter-Icon.png, name=test

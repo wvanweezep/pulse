@@ -35,7 +35,7 @@ public class TickManager extends AnimationTimer {
         delta += elapsed / NANO_FPS;
 
         while (delta >= 1) {
-            EntityManager.getInstance().fixedUpdate();
+            // EntityManager.getInstance().fixedUpdate();
             delta--;
         }
 
@@ -45,8 +45,8 @@ public class TickManager extends AnimationTimer {
             gc.fillText("FPS: " + currentFps, 10, 20);
         });
 
-        EntityManager.getInstance().update();
-        EntityManager.getInstance().render();
+        // EntityManager.getInstance().update();
+        // EntityManager.getInstance().render();
         RenderManager.getInstance().flush(gc);
         lastUpdate = now;
 
