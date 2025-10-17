@@ -1,5 +1,7 @@
 package com.wvanw.pulse.datalang;
 
+import com.wvanw.pulse.datalang.dto.Token;
+import com.wvanw.pulse.datalang.dto.TokenType;
 import com.wvanw.pulse.datalang.exceptions.LexingException;
 
 import java.util.ArrayList;

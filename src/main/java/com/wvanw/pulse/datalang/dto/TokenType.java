@@ -1,4 +1,4 @@
-package com.wvanw.pulse.datalang;
+package com.wvanw.pulse.datalang.dto;
 
 public enum TokenType {
     IDENTIFIER,
