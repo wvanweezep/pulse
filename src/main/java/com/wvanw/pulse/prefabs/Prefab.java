@@ -9,16 +9,20 @@ import java.util.List;
 
 public class Prefab {
 
-    private final String path;
+    private final String name;
     private final List<Component> components = new ArrayList<>();
 
-    public Prefab(String path, List<Component> components) {
-        this.path = path;
+    public Prefab(String name, List<Component> components) {
+        this.name = name;
         this.components.addAll(components);
     }
 
-    public String getPath() {
-        return path;
+    public String getName() {
+        return name;
+    }
+
+    public List<Component> getComponents() {
+        return components;
     }
 
     public Entity createEntity(EntityManager entityManager, String name) {

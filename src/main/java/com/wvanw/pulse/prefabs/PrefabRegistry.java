@@ -53,8 +53,6 @@ public class PrefabRegistry implements IRegistry<Prefab> {
      * Reloads all registered Prefabs.
      */
     public void reload() {
-        prefabs.replaceAll((k, _) ->
-                PrefabLoaderA.load(prefabs.get(k).getPath())
-        );
+        // TODO: Re-implement with new pipeline
     }
 }
